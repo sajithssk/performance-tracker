@@ -24,6 +24,9 @@ public class Employee {
     @Column(nullable = false)
     private String role;
 
-    @Column(name = "joining_data", nullable = false)
+    @Column(nullable = false)
+    private String department;
+
+    @Column(name = "joining_date", nullable = false)
     private LocalDate joiningDate;
 }
