@@ -24,4 +24,15 @@ Solution:
     Invalidation: Evict cycle summary key whenever a review or goal is submitted for that cycle.
     Skip caching: Individual review details — too volatile, low hit rate.
 
+## Assumptions
+
+1. **Multiple reviews per employee per cycle are allowed** — The schema intentionally does not enforce uniqueness on `(employee_id, review_cycle_id)` to support real-world edge cases like mid-cycle check-ins or re-evaluations.
+
+2. **Ratings are integers (1–5)** — The requirement specified `rating [1–5]` with no decimals mentioned. We used `INT` rather than `DECIMAL` to align with standard 1-to-5 star rating systems.
+
+3. **H2 in-memory is sufficient for the assignment** — We used H2 instead of PostgreSQL for simplicity, but the JPA layer is database-agnostic and would work with PostgreSQL by changing the connection string.
+
+4. **Review cycles are seeded, not created via API** — The requirements did not include a `POST /cycles` endpoint, so cycles are pre-loaded via `data.sql`. A create endpoint can be added if needed.
+
+6. **Goals are pre-seeded or managed outside this API** — No endpoints for creating or updating goals were specified, so goal management is assumed to happen via direct database access or a separate system.
 
